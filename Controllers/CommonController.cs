@@ -7,10 +7,10 @@ namespace task1.Controllers
         [HttpGet]
         public IActionResult getPayModeList()
         {
-            return Json(new { paymode = new[] { 
-                new { id = 1, payMode = "Cash" }, 
-                new { id = 2, payMode = "Card" }, 
-                new { id = 3, payMode = "Online" } 
+            return Json(new { comClLst = new[] { 
+                new { commonId = 1, commonCode = "Cash" }, 
+                new { commonId = 2, commonCode = "Card" }, 
+                new { commonId = 3, commonCode = "Online" } 
             } });
         }
 
@@ -55,39 +55,11 @@ namespace task1.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreditCards()
+        public IActionResult getCreditCardList()
         {
-            return Json(new { data = new[] { 
-                new { id = 1, cardName = "Visa" }, 
-                new { id = 2, cardName = "MasterCard" } 
-            } });
-        }
-
-        [HttpGet]
-        public IActionResult cashier()
-        {
-            return Json(new { data = new[] { 
-                new { id = 1, cashierName = "John Doe" }, 
-                new { id = 2, cashierName = "Jane Smith" } 
-            } });
-        }
-
-        [HttpGet]
-        public IActionResult Source()
-        {
-            return Json(new { data = new[] { 
-                new { id = 1, sourceName = "Walk-in" }, 
-                new { id = 2, sourceName = "CRS" },
-                new { id = 3, sourceName = "Website" }
-            } });
-        }
-
-        [HttpGet]
-        public IActionResult refby()
-        {
-            return Json(new { data = new[] { 
-                new { id = 1, doctorName = "Dr. House" }, 
-                new { id = 2, doctorName = "Dr. Watson" } 
+            return Json(new { comClLst = new[] { 
+                new { commonId = 1, commonCode = "Visa" }, 
+                new { commonId = 2, commonCode = "MasterCard" } 
             } });
         }
     }
