@@ -1273,51 +1273,8 @@
         }
     }
 
-    #phoneStandardContainer .iti {
-        width: 100%;
-        display: block;
-    }
 
-        #phoneStandardContainer .iti input[type=tel] {
-            width: 100%;
-            height: 38px;
-            padding: 0 36px 0 52px;
-            font-size: 13px;
-            border: 1px solid #e4e6f6;
-            border-radius: 4px;
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
-            outline: none;
-            background: white;
-        }
 
-            #phoneStandardContainer .iti input[type=tel]:focus {
-                border-color: #3b82f6;
-                box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-            }
-
-            #phoneStandardContainer .iti input[type=tel].input-error {
-                border-color: #ef4444 !important;
-                background: #fef2f2 !important;
-            }
-
-            #phoneStandardContainer .iti input[type=tel].input-valid {
-                border-color: #10b981 !important;
-                background: #f0fdf4 !important;
-            }
-
-    #phoneStandardContainer .iti--separate-dial-code .iti__selected-flag {
-        background: #f8fafc;
-        border-right: 1px solid #e4e6f6;
-        border-radius: 4px 0 0 4px;
-    }
-
-    #phoneStandardContainer .iti--container,
-    #phoneStandardContainer .iti__country-list {
-        z-index: 99999 !important;
-        max-height: 220px;
-        border-radius: 6px;
-        border: 1px solid #e4e6f6;
-    }
 /* =====================================================
    RESPONSIVE IMPROVEMENTS — lead.cshtml
    Targets: all breakpoints, smaller spacing, border-radius: 5px
@@ -1586,7 +1543,6 @@ button[onclick="doEntry()"] { padding: 10px 8px !important; font-size: 13px !imp
     .toggle-wrapper { max-width: 100%; }
 
     /* Select test area */
-    #selTest { height: 80px !important; }
 
     /* Lead info chips wrap */
     .lead-info { gap: 4px; }
@@ -1862,10 +1818,10 @@ select {
     overflow-y: auto !important;
 }
 
-/* ── 6. PHONE (intl-tel-input) — FIX WIDTH, REMOVE SHADOW ── */
+/* ── 6. PHONE INPUT — Bootstrap-compatible flex alignment ── */
 #phoneStandardContainer {
-    position: relative;
-    width: 100%;
+    position: relative !important;
+    width: 100% !important;
 }
 
 #phoneStandardContainer .iti {
@@ -1873,70 +1829,78 @@ select {
     display: block !important;
 }
 
-#phoneStandardContainer .iti input[type=tel] {
+/* Single unified border on the wrapper — Bootstrap input-group style */
+#phoneStandardContainer .iti--separate-dial-code {
     width: 100% !important;
+    display: flex !important;
+    align-items: stretch !important;
     height: 34px !important;
-    padding: 0 32px 0 90px !important;
-    font-size: 12px !important;
     border: 1.5px solid #d1d5db !important;
     border-radius: 5px !important;
-    box-shadow: none !important;
-    outline: none !important;
     background: #fff !important;
-    color: #374151 !important;
+    overflow: hidden !important;
     transition: border-color 0.18s ease !important;
 }
 
-#phoneStandardContainer .iti input[type=tel]:focus {
+#phoneStandardContainer .iti--separate-dial-code:focus-within {
     border-color: #111827 !important;
-    box-shadow: 0 0 0 2px rgba(17,24,39,0.10) !important;
+    box-shadow: 0 0 0 2px rgba(17,24,39,0.08) !important;
 }
 
-#phoneStandardContainer .iti input[type=tel].input-error {
-    border-color: #ef4444 !important;
-    background: #fef2f2 !important;
+/* Flag container — needs to participate in flex flow */
+#phoneStandardContainer .iti__flag-container {
+    position: relative !important;
+    display: flex !important;
 }
 
-#phoneStandardContainer .iti input[type=tel].input-valid {
-    border-color: #16a34a !important;
-    background: #f0fdf4 !important;
-}
-
-/* Flag button — compact fixed width */
-#phoneStandardContainer .iti__flag-container,
-#phoneStandardContainer .iti--separate-dial-code .iti__flag-container {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    width: 82px !important;
-}
-
+/* Country code button — acts like Bootstrap input-group-prepend */
 #phoneStandardContainer .iti--separate-dial-code .iti__selected-flag {
-    width: 82px !important;
-    max-width: 82px !important;
-    padding: 0 6px !important;
-    background: #f8fafc !important;
-    border-right: 1.5px solid #d1d5db !important;
-    border-radius: 5px 0 0 5px !important;
-    height: 100% !important;
     display: flex !important;
     align-items: center !important;
+    flex-shrink: 0 !important;
+    height: 100% !important;
+    padding: 0 8px 0 8px !important;
+    background: #f8fafc !important;
+    border-right: 1px solid #e2e8f0 !important;
+    border-radius: 4px 0 0 4px !important;
+    cursor: pointer !important;
     gap: 4px !important;
+    white-space: nowrap !important;
+}
+
+/* Number input — fills remaining width */
+#phoneStandardContainer .iti input[type=tel] {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 10px !important;
+    padding-left: 10px !important; /* Force reset library's dynamic padding */
+    font-size: 12px !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #374151 !important;
+}
+
+#phoneStandardContainer .iti input[type=tel]:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 #phoneStandardContainer .iti__selected-dial-code {
     font-size: 11px !important;
+    font-weight: 600 !important;
     color: #374151 !important;
-    white-space: nowrap !important;
 }
 
 #phoneStandardContainer .iti__arrow {
     margin-left: 2px !important;
-    border-left-width: 4px !important;
-    border-right-width: 4px !important;
     border-top-color: #6b7280 !important;
 }
+
 
 /* Country dropdown list */
 #phoneStandardContainer .iti--container {
@@ -2206,21 +2170,18 @@ button[onclick="doEntry()"] {
     #dvsearch .w-full.md\:w-auto { flex: 1 1 100% !important; }
     #dvsearch .flex-grow { flex: 1 1 100% !important; width: 100% !important; }
 
-    /* Phone container: smaller flag width on mobile */
-    #phoneStandardContainer .iti--separate-dial-code .iti__selected-flag,
-    #phoneStandardContainer .iti__flag-container,
-    #phoneStandardContainer .iti--separate-dial-code .iti__flag-container {
-        width: 72px !important;
+    /* Phone container: mobile overrides — only visual, no width/padding conflicts */
+    #phoneStandardContainer .iti--separate-dial-code .iti__selected-flag {
+        justify-content: flex-start !important;
+        padding-left: 6px !important;
     }
 
-    #phoneStandardContainer .iti input[type=tel] {
-        padding-left: 76px !important;
-    }
-
-    /* Country list constrained on mobile */
+    /* Country list constrained on mobile — prevent viewport overflow */
     #phoneStandardContainer .iti__country-list {
-        min-width: 220px !important;
-        max-width: 100vw !important;
+        min-width: 260px !important;
+        max-width: calc(100vw - 20px) !important;
+        left: 0 !important;
+        right: auto !important;
     }
 
     /* Other phone container: no indent */
@@ -2255,7 +2216,8 @@ button[onclick="doEntry()"] {
     }
 
     #phoneStandardContainer .iti--separate-dial-code .iti__selected-flag {
-        width: 68px !important;
+        width: 76px !important;
+        padding-left: 8px !important;
     }
 
     #dvsearch button[onclick="showDetailsbynid()"] {
@@ -2304,6 +2266,154 @@ button[onclick="doEntry()"] {
     height: 38px;
 }
 
+/* Global Input Field Styling */
+input[type="text"], 
+input[type="email"], 
+input[type="datetime-local"],
+select,
+.select2-selection--single,
+.iti,
+#dvsearch .flex.items-center.border,
+.gender-label {
+    border: 1px solid #cbd5e1 !important; /* Clean default */
+    transition: all 0.1s ease;
+}
+
+/* Phone tel inner input has NO border — .iti wrapper owns the border */
+#phoneStandardContainer .iti input[type=tel] {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background: transparent !important;
+}
+
+/* User requested: 3px Black Border on Focus ONLY */
+input:focus, 
+select:focus,
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default.select2-container--open .select2-selection--single,
+.focus-within\:border-blue-500:focus-within,
+#dvsearch .flex.items-center.border:focus-within {
+    border-width: 2px !important;
+    border-color: #000000 !important; /* Bold Black */
+    background-color: #ffffff !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Ensure consistent height during focus */
+input, select, .select2-selection--single {
+    transition: border-width 0.1s ease;
+}
+
+/* Global Responsive Dropdown Fixes */
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-selection--single {
+    height: 34px !important;
+    border-radius: 8px !important;
+    border: 1px solid #d1d5db !important;
+}
+
+/* ── TEST/PROFILE MULTI-SELECT STYLING ── */
+#testseldv .select2-container--default .select2-selection--multiple {
+    border: 1.5px solid #d1d5db !important;
+    border-radius: 5px !important;
+    min-height: 34px !important;
+    padding: 1px 4px !important;
+    background-color: #fff !important;
+    transition: all 0.15s ease !important;
+}
+
+#testseldv .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: #000 !important;
+    border-width: 2px !important;
+}
+
+#testseldv .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #f1f5f9 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 4px !important;
+    font-size: 11px !important;
+    color: #475569 !important;
+    margin-top: 4px !important;
+}
+
+.select2-selection__rendered {
+    line-height: 32px !important;
+    font-size: 13px !important;
+    padding-left: 12px !important;
+}
+
+.select2-selection__arrow {
+    height: 32px !important;
+}
+
+/* International Telephone Input Dropdown Fixes */
+.iti { width: 100% !important; }
+
+.iti__flag-container {
+    left: 0 !important;
+    padding: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+}
+
+.iti__selected-flag {
+    padding-left: 8px !important; /* Reduced for tighter alignment */
+    background: #f8fafc !important;
+    border-radius: 8px 0 0 8px !important;
+    border-right: 1px solid #e2e8f0 !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.iti__country-list {
+    min-width: 300px !important;
+    max-width: 90vw !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid #e2e8f0 !important;
+    z-index: 1000 !important;
+}
+
+.iti__country {
+    padding: 10px 12px !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.iti__flag-box {
+    margin-right: 8px !important;
+}
+
+/* Hide scrollbar for country list dropdown */
+.iti__country-list {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.iti__country-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.iti__country-name {
+    font-weight: 500 !important;
+    color: #1e293b !important;
+}
+
+.iti__dial-code {
+    color: #64748b !important;
+    font-size: 11px !important;
+}
+
 /* Premium Flatpickr Theme Overrides */
 .flatpickr-calendar {
     background: #ffffff;
@@ -2312,6 +2422,7 @@ button[onclick="doEntry()"] {
     border-radius: 12px !important;
     font-family: inherit !important;
     width: 300px !important;
+    max-width: 95vw !important; /* Ensure it fits on small screens */
 }
 
 .flatpickr-calendar:before, .flatpickr-calendar:after { display: none !important; }
@@ -2332,12 +2443,31 @@ button[onclick="doEntry()"] {
 
 .flatpickr-current-month .flatpickr-monthDropdown-months {
     font-weight: 600 !important;
-    padding: 2px 8px !important;
+    padding: 4px 10px !important;
     border-radius: 6px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    margin-right: 5px !important;
+    cursor: pointer !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
 }
 
-.flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+.flatpickr-current-month .numInputWrapper {
+    width: 65px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 2px !important;
+}
+
+.flatpickr-current-month .numInputWrapper:hover {
     background: #f1f5f9 !important;
+}
+
+.flatpickr-current-month input.cur-year {
+    font-weight: 600 !important;
+    color: #1e293b !important;
 }
 
 .flatpickr-weekday {
@@ -2594,21 +2724,25 @@ button[onclick="doEntry()"] {
                                     <div id="emailError" class="text-red-500 text-[10px] mt-0.5 hidden">Invalid email address</div>
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="txtMob">Mobile <span class="text-red-500">*</span></label>
-                                    <div id="phoneStandardContainer">
-                                        <input type="tel" id="txtMob" placeholder="Mobile number">
-                                    </div>
-                                    <!-- Other phone inputs (initially hidden) -->
-                                    <div id="phoneOtherContainer" class="hidden mt-1.5">
-                                        <input type="text" id="otherPhoneNumber" class="!h-[30px] !text-[11px]" placeholder="+1234567890">
-                                    </div>
-                                    <div class="flex items-center gap-2 mt-1 px-1">
-                                        <label class="inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" id="chkOtherCountry" onchange="toggleOtherCountryB2C()" class="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                            <span class="ml-1.5 text-[10px] font-semibold text-gray-500">International No.</span>
-                                        </label>
-                                    </div>
-                                </div>
+    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="txtMob">Mobile <span class="text-red-500">*</span></label>
+    <div id="phoneStandardContainer" style="position:relative; width:100%;">
+        <input type="tel" id="txtMob" placeholder="Mobile number">
+    </div>
+    <div class="flex items-center gap-1 mt-0.5 h-[14px]">
+        <span id="phoneValidationIcon" style="display:none; font-size:11px;"></span>
+        <div id="phoneFeedbackB2C" style="display:none; font-size:9px; font-weight:600;"></div>
+    </div>
+    <!-- Other phone inputs (initially hidden) -->
+    <div id="phoneOtherContainer" class="hidden mt-1.5">
+        <input type="text" id="otherPhoneNumber" class="!h-[30px] !text-[11px]" placeholder="+1234567890">
+    </div>
+    <div class="flex items-center gap-2 mt-1 px-1">
+        <label class="inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="chkOtherCountry" onchange="toggleOtherCountryB2C()" class="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+            <span class="ml-1.5 text-[10px] font-semibold text-gray-500">International No.</span>
+        </label>
+    </div>
+</div>
                             </div>
 
                             <!-- Row 5: Address & File No -->
@@ -2625,12 +2759,12 @@ button[onclick="doEntry()"] {
 
                             <!-- Row 6: ID Documentation -->
                             <div class="pt-2 border-t border-gray-100">
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div class="flex flex-col">
-                                        <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5">Patient Type <span class="text-red-500">*</span></label>
+                                        <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]">Patient Type <span class="text-red-500">*</span></label>
                                         <input type="checkbox" id="isVip" style="display:none;">
                                         <input type="checkbox" id="chktravel" style="display:none;">
-                                        <div class="flex rounded-lg overflow-hidden border border-gray-200 bg-white h-[34px]">
+                                        <div class="flex rounded-lg overflow-hidden border border-gray-200 bg-white h-[34px] shrink-0">
                                             <button type="button" id="lblLocalResident"
                                                     class="flex-1 flex items-center justify-center gap-1.5 text-[10px] font-bold transition-all duration-200 border-r border-gray-200"
                                                     style="background:#2563eb; color:white;"
@@ -2644,53 +2778,54 @@ button[onclick="doEntry()"] {
                                                 <span class="text-xs">✈</span> TOURIST
                                             </button>
                                         </div>
-                                        <div id="dvPatientTypeHint" class="mt-1 h-[14px]">
-                                            <span id="lblPatientTypeHint" class="text-[9px] font-bold text-blue-600 uppercase">
-                                                Resident — Emirates ID is required
-                                            </span>
+                                        <div id="dvPatientTypeHint" class="h-[10px] overflow-hidden mt-1">
+                                            <span id="lblPatientTypeHint" class="text-[8px] font-bold text-blue-600 uppercase block leading-none">Resident — Emirates ID / CPR No is required</span>
                                         </div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="txtNIN1" id="lblNIN">
+                                        <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]" for="txtNIN1" id="lblNIN">
                                             @{
                                                 var countryId = Accessor.HttpContext.Session.GetInt32("CountryId");
                                                 var ninLabel = countryId switch { 4 => "Emirates ID", 2 => "CPR No", 1 => "CPR No", 5 => "IQAMA No", 3 => "Civil ID", _ => "National ID" };
                                             }
                                             @ninLabel <span class="text-red-500">*</span>
                                         </label>
-                                        <input type="text" id="txtNIN1" placeholder="@ninLabel *" maxlength="15">
-                                        <label id="lbldigitmsg" class="text-red-500 text-[9px] font-bold mt-1 hidden">Enter <span id="forcountry"></span> digits</label>
-                                        <label id="lblEmiratesError" class="text-red-500 text-[9px] font-bold mt-1 hidden"></label>
+                                        <input type="text" id="txtNIN1" placeholder="@ninLabel *" maxlength="15" class="h-[34px]">
+                                        <div class="h-[10px] overflow-hidden mt-1">
+                                            <label id="lbldigitmsg" class="text-red-500 text-[8px] font-bold leading-none hidden">Enter <span id="forcountry"></span> digits</label>
+                                            <label id="lblEmiratesError" class="text-red-500 text-[8px] font-bold leading-none hidden"></label>
+                                        </div>
                                     </div>
                                     <div class="flex flex-col">
-                                        <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="txtPassport" id="lblPassport">Passport No</label>
-                                        <input type="text" id="txtPassport" placeholder="Passport No" maxlength="15">
+                                        <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]" for="txtPassport" id="lblPassport">Passport No</label>
+                                        <input type="text" id="txtPassport" placeholder="Passport No" maxlength="15" class="h-[34px]">
+                                        <div class="h-[12px] mt-1"></div> <!-- Spacer to maintain alignment -->
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Row 7: Operational Details -->
-                            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
                                 <div class="flex flex-col">
-                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="selBtech">BTech</label>
+                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]" for="selBtech">BTech</label>
                                     <select id="selBtech" class="w-full"></select>
                                 </div>
                                 <div class="flex flex-col" id="sourcedv">
-                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="selSource">Source</label>
+                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]" for="selSource">Source</label>
                                     <select id="selSource" class="w-full"></select>
                                 </div>
                                 <div class="flex flex-col crs-partner-section" id="dvCRSPartner">
-                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="selCRSPartner">CRS Partner <span class="text-red-500">*</span></label>
+                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]" for="selCRSPartner">CRS Partner <span class="text-red-500">*</span></label>
                                     <select id="selCRSPartner" class="w-full">
                                         <option value="0">Select Partner</option>
                                     </select>
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="selCashier">Cashier</label>
+                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]" for="selCashier">Cashier</label>
                                     <select id="selCashier" class="w-full"></select>
                                 </div>
                                 <div class="flex flex-col">
-                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1" for="selAgeType2">Consent</label>
+                                    <label class="text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1.5 h-[14px]" for="selAgeType2">Consent</label>
                                     <select id="selAgeType2" class="w-full">
                                         <option value="0">Default</option>
                                         <option value="1">Facility Out</option>
@@ -2742,11 +2877,11 @@ button[onclick="doEntry()"] {
                     </div>
                 </div>
                 <div class="container mx-auto mt-2" id="dvbarcode" style="display:none">
-                    <div class="bg-white shadow-md rounded mt-2" id="testseldv">
-                        <div class="w-full px-2 px-2 py-2">
-                            <div class="flex items-center">
-                                <label class="text-gray-700 text-sm font-bold mr-2 whitespace-nowrap" for="selTest">Select Test/Profile</label>
-                                <select id="selTest" multiple class="flex-grow shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="height: 100px;">
+                    <div id="testseldv" class="mt-2">
+                        <div class="flex items-center">
+                            <label class="text-gray-700 text-sm font-bold mr-2 whitespace-nowrap" for="selTest">Select Test/Profile</label>
+                            <div class="flex-grow">
+                                <select id="selTest" multiple class="w-full !border-none !shadow-none" style="min-height: 34px;">
                                 </select>
                             </div>
                         </div>
@@ -2945,7 +3080,7 @@ button[onclick="doEntry()"] {
               dateFormat: "d/m/Y",
               maxDate: "today",
               allowInput: false,
-              yearRange: 100
+              monthSelectorType: "dropdown"
            });
         });
         async function runSequence() {
@@ -3153,6 +3288,10 @@ button[onclick="doEntry()"] {
         function initMobileITI() {
             var phoneInput = document.getElementById('txtMob');
             if (!phoneInput || typeof window.intlTelInput === 'undefined') return;
+            
+            // Prevent double initialization which causes duplicate flag buttons
+            if (itiB2C) return;
+
             var countryISOMap = { 4:'ae', 2:'bh', 3:'om', 5:'sa', 1:'bh' };
             var clCntryInt = parseInt('@Accessor.HttpContext.Session.GetInt32("CountryId")', 10) || 4;
             var defaultCountry = countryISOMap[clCntryInt] || 'ae';
@@ -4413,7 +4552,7 @@ button[onclick="doEntry()"] {
 
         if (email) {
             $info.append(
-                '<div class="lead-info-item" style="width: 100%;">' +
+                '<div class="lead-info-item">' +
                 '<i class="fas fa-envelope icon"></i>' +
                 '<span class="text">' + email + '</span>' +
                 '</div>'
